@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import com.RaiseMeUp.HH.todolist.domain.ToDoList;
 import com.RaiseMeUp.HH.todolist.infrastructure.ToDoListRepository;
 import java.time.LocalDateTime;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -40,7 +39,7 @@ public class JpaMappingTest {
     System.out.println("=========================");
     System.out.println(todolist.getId());
     System.out.println(todolist.getContent());
-    System.out.println(todolist.getIsComplete());
+    System.out.println(todolist.getIsCompleted());
     System.out.println(todolist.getCreatedDateTime());
     System.out.println("=========================");
     Long id = todolist.getId();

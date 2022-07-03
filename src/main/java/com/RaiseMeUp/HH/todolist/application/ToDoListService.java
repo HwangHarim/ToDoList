@@ -1,6 +1,8 @@
 package com.RaiseMeUp.HH.todolist.application;
 
 import com.RaiseMeUp.HH.todolist.domain.ToDoList;
+import com.RaiseMeUp.HH.todolist.dto.request.ToDoListRequestDto;
+import com.RaiseMeUp.HH.todolist.dto.response.ToDoListResponseDto;
 import com.RaiseMeUp.HH.todolist.infrastructure.ToDoListRepository;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -11,8 +13,7 @@ public class ToDoListService {
 
   private final ToDoListRepository todoRepository;
 
-  public ToDoListService(
-      ToDoListRepository todoRepository) {
+  public ToDoListService(ToDoListRepository todoRepository) {
     this.todoRepository = todoRepository;
   }
 
@@ -21,9 +22,8 @@ public class ToDoListService {
     return todoRepository.findAll(sort);
   }
 
-
-  public void postTodo(ToDoList todolist) throws Exception {
-    todoRepository.save(todolist);
+  public void postTodo(ToDoList toDoList){
+     todoRepository.save(toDoList);
   }
 
 

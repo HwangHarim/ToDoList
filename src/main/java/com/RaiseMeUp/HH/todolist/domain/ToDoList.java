@@ -6,33 +6,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@RequiredArgsConstructor
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@Setter
 public class ToDoList {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "todolist_id")
   private Long id;
 
+  @NonNull
   private String content;
 
   @Column
-  private Boolean isComplete;
+  private Boolean isCompleted;
 
   @Column
   private LocalDateTime createdDateTime;
-
-  @Builder
-  public ToDoList(Long id, String content, Boolean isComplete, LocalDateTime createdDateTime) {
-    this.id = id;
-    this.content = content;
-    this.isComplete = isComplete;
-    this.createdDateTime = createdDateTime;
-  }
 }

@@ -1,6 +1,7 @@
 package com.RaiseMeUp.HH;
 
 import com.RaiseMeUp.HH.todolist.domain.ToDoList;
+import com.RaiseMeUp.HH.todolist.dto.request.ToDoListRequestDto;
 import com.RaiseMeUp.HH.todolist.infrastructure.ToDoListRepository;
 import java.time.LocalDateTime;
 import java.util.stream.IntStream;
@@ -22,7 +23,7 @@ public class HhApplication {
 			IntStream.rangeClosed(1, 10).forEach(index -> toDoListRepository.save(ToDoList.builder()
 					.content("오늘 할 일" + index)
 					.createdDateTime(LocalDateTime.now())
-					.isComplete(false)
+					.isCompleted(false)
 					.build())
 			);
 		};
