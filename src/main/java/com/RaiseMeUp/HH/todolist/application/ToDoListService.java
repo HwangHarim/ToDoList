@@ -18,7 +18,7 @@ public class ToDoListService {
   }
 
 
-  public List<ToDoList> getTodos(Sort sort) throws Exception {
+  public List<ToDoList> getTodos(Sort sort) {
     return todoRepository.findAll(sort);
   }
 
@@ -27,12 +27,12 @@ public class ToDoListService {
   }
 
 
-  public void deleteTodo(Long id) throws Exception {
+  public void deleteTodo(Long id) {
     todoRepository.deleteById(id);
   }
 
 
-  public ToDoList findTodoById(Long Id) throws Exception {
+  public ToDoList findTodoById(Long Id) {
     return todoRepository.findById(Id).orElse(new ToDoList());
   }
 

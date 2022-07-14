@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/api/v1/todos")
 public class ToDoListController {
 
   private final ToDoListService toDoListService;
@@ -31,25 +31,20 @@ public class ToDoListController {
     this.toDoListService = toDoListService;
   }
 
-  /**
-   * 목록 조회
-   *
-   * @return ResponseEntity
-   **/
   @GetMapping(produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
-  public ResponseEntity<?> getTodoLists() throws Exception {
+  public ResponseEntity<?> getTodoLists() {
     List<ToDoList> toDoLists = toDoListService.getTodos(Sort.by(Direction.ASC, "id"));
     return ResponseEntity.ok(toDoLists);
   }
-
+  // 통일성
   @PostMapping
   public ResponseEntity<String> postToDoList(@RequestBody ToDoListRequestDto toDoListRequestDto)
       throws Exception {
-    toDoListRequestDto.setCreatedDateTime(LocalDateTime.now());
-    toDoListRequestDto.setIsCompleted(false);
+    toDoListRequestDto.setCreatedDateTime(LocalDateTime.now());//
+    toDoListRequestDto.setIsCompleted(false); //생성자 강제
     ToDoList entity = ToDoListRequestDto.toEntity(toDoListRequestDto);
     toDoListService.postTodo(entity);
-    return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
   }
 
   @PutMapping("/{id}")

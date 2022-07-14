@@ -24,3 +24,7 @@ public class ToDoListRequestDto {
         .build();
   }
 }
+//Request validation
+//spring validation 체크
+//Restful
+//헤이티오스
