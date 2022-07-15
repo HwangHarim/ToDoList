@@ -48,7 +48,7 @@ public class ToDoListController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<String> putToDoList(@PathVariable("id") Long id) throws Exception {
+  public ResponseEntity<String> putToDoList(@PathVariable("id") Long id){
     ToDoList todolist = toDoListService.findTodoById(id);
 
     ToDoListConverter converter = new ToDoListConverter();
@@ -66,7 +66,7 @@ public class ToDoListController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<String> deleteToDoList(@PathVariable("id") Long id) throws Exception {
+  public ResponseEntity<String> deleteToDoList(@PathVariable("id") Long id){
     toDoListService.deleteTodo(id);
     return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
   }
