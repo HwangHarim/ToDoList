@@ -11,7 +11,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Builder
@@ -26,9 +27,18 @@ public class ToDoList {
   @NonNull
   private String content;
 
-  @Column
+  @Column(columnDefinition = "boolean default false")
   private Boolean isCompleted;
 
-  @Column
+  @Column(name="crated_date", columnDefinition = "DATE")
+  @CreatedDate
   private LocalDateTime createdDateTime;
+
+  @Column(name="modified_date", columnDefinition = "DATE")
+  @LastModifiedDate
+  private LocalDateTime modifiedDate;
+
+  public void update(String content){
+    this.content = content;
+  }
 }

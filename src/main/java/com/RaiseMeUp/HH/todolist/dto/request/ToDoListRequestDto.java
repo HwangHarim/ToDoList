@@ -1,13 +1,10 @@
 package com.RaiseMeUp.HH.todolist.dto.request;
 
-import com.RaiseMeUp.HH.todolist.domain.ToDoList;
 import java.time.LocalDateTime;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 
 @Builder
-@Data
 public class ToDoListRequestDto {
 
   private Long id;
@@ -15,16 +12,22 @@ public class ToDoListRequestDto {
   private Boolean isCompleted;
   private LocalDateTime createdDateTime;
 
-  public static ToDoList toEntity(ToDoListRequestDto toDoListRequestDto) {
-    return ToDoList.builder()
-        .id(toDoListRequestDto.id)
-        .content(toDoListRequestDto.content)
-        .isCompleted(toDoListRequestDto.isCompleted)
-        .createdDateTime(toDoListRequestDto.createdDateTime)
-        .build();
+  public Long getId() {
+    return id;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public Boolean getCompleted() {
+    return isCompleted;
+  }
+
+  public LocalDateTime getCreatedDateTime() {
+    return createdDateTime;
   }
 }
 //Request validation
 //spring validation 체크
-//Restful
 //헤이티오스

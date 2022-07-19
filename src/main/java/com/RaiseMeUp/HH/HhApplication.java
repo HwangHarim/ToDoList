@@ -1,7 +1,6 @@
 package com.RaiseMeUp.HH;
 
 import com.RaiseMeUp.HH.todolist.domain.ToDoList;
-import com.RaiseMeUp.HH.todolist.dto.request.ToDoListRequestDto;
 import com.RaiseMeUp.HH.todolist.infrastructure.ToDoListRepository;
 import java.time.LocalDateTime;
 import java.util.stream.IntStream;
@@ -18,7 +17,7 @@ public class HhApplication {
 	}
 
 	@Bean
-	public CommandLineRunner runner(ToDoListRepository toDoListRepository) throws Exception {
+	public CommandLineRunner runner(ToDoListRepository toDoListRepository) {
 		return (args) -> {
 			IntStream.rangeClosed(1, 10).forEach(index -> toDoListRepository.save(ToDoList.builder()
 					.content("오늘 할 일" + index)
