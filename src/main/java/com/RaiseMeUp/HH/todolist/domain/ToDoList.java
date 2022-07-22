@@ -41,4 +41,11 @@ public class ToDoList {
   public void update(String content){
     this.content = content;
   }
+
+  @Override
+  public String toString(){
+    return "ToDoList  [id=" + id +
+        ", content=" + content +
+        ", isComplete=" + isCompleted + "]";
+  }
 }
