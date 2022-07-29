@@ -1,5 +1,6 @@
 package com.RaiseMeUp.HH.todolist.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,16 +32,8 @@ public class ToDoList {
   private Boolean isCompleted;
 
   @Column(name="crated_date", columnDefinition = "DATE")
-  @CreatedDate
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
   private LocalDateTime createdDateTime;
-
-  @Column(name="modified_date", columnDefinition = "DATE")
-  @LastModifiedDate
-  private LocalDateTime modifiedDate;
-
-  public void update(String content){
-    this.content = content;
-  }
 
   @Override
   public String toString(){

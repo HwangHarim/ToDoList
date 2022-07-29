@@ -1,9 +1,9 @@
 package com.RaiseMeUp.HH.todolist.application;
 
 import com.RaiseMeUp.HH.todolist.domain.ToDoList;
-import com.RaiseMeUp.HH.todolist.dto.request.ToDoListRequestDto;
+import com.RaiseMeUp.HH.todolist.dto.request.CreateToDoRequest;
+import com.RaiseMeUp.HH.todolist.dto.request.UpdateToDoRequest;
 import com.RaiseMeUp.HH.todolist.infrastructure.ToDoListRepository;
-import com.RaiseMeUp.HH.todolist.todolistconverter.ToDoListConverter;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -13,19 +13,20 @@ import org.springframework.stereotype.Service;
 public class ToDoListService {
 
   private final ToDoListRepository todoRepository;
-  private ToDoListConverter converter;
 
   public ToDoListService(ToDoListRepository todoRepository) {
     this.todoRepository = todoRepository;
   }
 
-  public String findTodoByContent(Long id){
+  public String findTodoByContent(Long id) {
     return findTodoById(id).getContent();
   }
-  public Boolean findTodoByIsCompleted(Long id){
+
+  public Boolean findTodoByIsCompleted(Long id) {
     return findTodoById(id).getIsCompleted();
   }
-  public LocalDateTime findTodoByCreateDateTime(Long id){
+
+  public LocalDateTime findTodoByCreateDateTime(Long id) {
     return findTodoById(id).getCreatedDateTime();
   }
 
@@ -34,8 +35,8 @@ public class ToDoListService {
     return todoRepository.findAll(sort);
   }
 
-  public void postTodo(ToDoList toDoList){
-     todoRepository.save(toDoList);
+  public void postTodo(ToDoList toDoList) {
+    todoRepository.save(toDoList);
   }
 
 
@@ -48,18 +49,29 @@ public class ToDoListService {
     return todoRepository.findById(Id).orElse(new ToDoList());
   }
 
-  public ToDoList createToDo(ToDoListRequestDto toDoListRequestDto){
-   return converter.createToDo(
-     toDoListRequestDto.getId(),
-     toDoListRequestDto.getContent(),
-       toDoListRequestDto.getCompleted(),
-       toDoListRequestDto.getCreatedDateTime());
+
+  public ToDoList createToDos(CreateToDoRequest createToDoRequest) {
+    return createToDo(createToDoRequest);
   }
 
-  public ToDoList updateToDo(ToDoListRequestDto toToDoListRequestDto){
-    return converter.updateToDo(toToDoListRequestDto.getId(),
-        toToDoListRequestDto.getContent(),
-        toToDoListRequestDto.getCompleted(),
-        toToDoListRequestDto.getCreatedDateTime());
+  public ToDoList updateToDo(UpdateToDoRequest updateToDoRequest) {
+    return updateToDo(updateToDoRequest.getId(), updateToDoRequest);
+  }
+
+  public ToDoList createToDo(CreateToDoRequest createToDoRequest) {
+    return ToDoList.builder()
+        .content(createToDoRequest.getContent())
+        .createdDateTime(LocalDateTime.now())
+        .isCompleted(false)
+        .build();
+  }
+
+  public ToDoList updateToDo(Long id, UpdateToDoRequest updateToDoRequest) {
+    return ToDoList.builder()
+        .id(id)
+        .content(updateToDoRequest.getContent())
+        .isCompleted(false)
+        .createdDateTime(LocalDateTime.now())
+        .build();
   }
 }

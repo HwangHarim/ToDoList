@@ -2,8 +2,8 @@ package com.RaiseMeUp.HH.todolist.presentation;
 
 import com.RaiseMeUp.HH.todolist.application.ToDoListService;
 import com.RaiseMeUp.HH.todolist.domain.ToDoList;
-import com.RaiseMeUp.HH.todolist.dto.request.ToDoListRequestDto;
-import com.RaiseMeUp.HH.todolist.todolistconverter.ToDoListConverter;
+import com.RaiseMeUp.HH.todolist.dto.request.CreateToDoRequest;
+import com.RaiseMeUp.HH.todolist.dto.request.UpdateToDoRequest;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ToDoListController {
 
   private final ToDoListService toDoListService;
-  private ToDoListConverter converter;
 
   public ToDoListController(ToDoListService toDoListService) {
     this.toDoListService = toDoListService;
@@ -45,15 +44,14 @@ public class ToDoListController {
   }
 
   @PostMapping
-  public ResponseEntity<String> postToDo(@RequestBody ToDoListRequestDto toDoListRequestDto) {
-    toDoListService.postTodo(toDoListService.createToDo(toDoListRequestDto));
+  public ResponseEntity<String> postToDo(@RequestBody CreateToDoRequest createToDoRequest) {
+    toDoListService.postTodo(toDoListService.createToDos(createToDoRequest));
     return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<String> putToDo(@PathVariable("id") Long id){
-    toDoListService.postTodo(toDoListService.updateToDo(converter.toToDoRequestDto(id,toDoListService.findTodoByContent(id),
-        toDoListService.findTodoByIsCompleted(id), toDoListService.findTodoByCreateDateTime(id))));
+  public ResponseEntity<String> putToDo(@PathVariable("id") Long id, @RequestBody UpdateToDoRequest updateToDoRequest){
+    toDoListService.postTodo(toDoListService.updateToDo(id, updateToDoRequest));
     return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
   }
 
